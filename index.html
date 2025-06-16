@@ -188,7 +188,13 @@
             transform: translateY(-3px);
         }
 
-        /* Resume Button */
+        /* Resume Buttons and Dropdown */
+        .resume-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
         .resume-button {
             border: 2px solid var(--secondary-color);
             color: var(--secondary-color);
@@ -196,6 +202,7 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .resume-button:hover {
@@ -211,6 +218,21 @@
 
         .resume-button:hover i {
             transform: translateX(3px);
+        }
+
+        .dropdown-menu-dark {
+            background-color: var(--primary-color);
+            border: 1px solid var(--secondary-color);
+        }
+
+        .dropdown-menu-dark .dropdown-item {
+            color: #ccd6f6;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-menu-dark .dropdown-item:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--secondary-color);
         }
 
         /* Utility Classes */
@@ -282,6 +304,18 @@
                 height: 250px;
             }
         }
+
+        @media (max-width: 576px) {
+            .resume-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .resume-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -308,8 +342,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="resume.html" target="_blank">Resume</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="resumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Resume
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="resumeDropdown">
+                            <li><a class="dropdown-item" href="resume.html" target="_blank">View Online</a></li>
+                            <li><a class="dropdown-item" href="resume.pdf" target="_blank">Download PDF</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -333,9 +373,12 @@
                         <a href="https://linkedin.com/in/faizalardian" target="_blank"><i class="bi bi-linkedin"></i></a>
                         <a href="mailto:faizalardianputra@yahoo.co.id"><i class="bi bi-envelope"></i></a>
                     </div>
-                    <div class="mt-4">
-                        <a href="resume.html" target="_blank" class="btn btn-outline-light resume-button">
-                            <i class="bi bi-file-text me-2"></i>View Resume
+                    <div class="mt-4 resume-buttons">
+                        <a href="resume.html" target="_blank" class="btn btn-outline-light resume-button me-3">
+                            <i class="bi bi-file-text me-2"></i>View Online
+                        </a>
+                        <a href="resume.pdf" target="_blank" class="btn btn-outline-light resume-button">
+                            <i class="bi bi-file-pdf me-2"></i>Download PDF
                         </a>
                     </div>
                 </div>
