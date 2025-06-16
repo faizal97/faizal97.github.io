@@ -175,6 +175,78 @@
             box-shadow: 0 4px 20px rgba(100, 255, 218, 0.1);
         }
 
+        /* Project Cards */
+        .project-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 25px;
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(100, 255, 218, 0.1);
+        }
+
+        .project-title {
+            color: var(--secondary-color);
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .project-description {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-links .btn {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .project-links .btn:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .project-links .btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .project-links .btn:hover i {
+            transform: translateX(3px);
+        }
+
         /* Social Links */
         .social-links a {
             color: #ccd6f6;
@@ -340,6 +412,9 @@
                         <a class="nav-link" href="#experience">Experience</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -453,6 +528,100 @@
                     <li>Mentored students during hands-on learning exercises and guided them through technical coursework</li>
                     <li>Served as substitute instructor, delivering lectures and managing classroom activities when primary lecturer was unavailable</li>
                 </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="highlight mb-5">Featured Projects</h2>
+            
+            <!-- Professional Projects -->
+            <div class="mb-5">
+                <h3 class="h4 text-secondary mb-4">Professional Work</h3>
+                <div class="row g-4">
+                    <!-- TruTrip App -->
+                    <div class="col-md-6">
+                        <div class="project-card">
+                            <h4 class="project-title">TruTrip App</h4>
+                            <p class="project-description">
+                                A comprehensive travel management platform for businesses, offering seamless booking and travel management solutions.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://app.trutrip.co" target="_blank" class="btn btn-sm btn-outline-light">
+                                    <i class="bi bi-link-45deg me-1"></i>Visit Site
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AHU Beneficial Owner -->
+                    <div class="col-md-6">
+                        <div class="project-card">
+                            <h4 class="project-title">AHU Beneficial Owner</h4>
+                            <p class="project-description">
+                                Government system for managing and tracking beneficial ownership information for legal entities in Indonesia.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://bo.ahu.go.id/site/login" target="_blank" class="btn btn-sm btn-outline-light">
+                                    <i class="bi bi-link-45deg me-1"></i>Visit Site
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Covid Entry Check -->
+                    <div class="col-md-6">
+                        <div class="project-card">
+                            <h4 class="project-title">Covid Entry Check</h4>
+                            <p class="project-description">
+                                Tool for verifying travel eligibility and entry requirements during the COVID-19 pandemic.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://start.trutrip.co/covid-entry-check/" target="_blank" class="btn btn-sm btn-outline-light">
+                                    <i class="bi bi-link-45deg me-1"></i>Visit Site
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AHU Koperasi -->
+                    <div class="col-md-6">
+                        <div class="project-card">
+                            <h4 class="project-title">AHU Koperasi</h4>
+                            <p class="project-description">
+                                Government platform for managing and administering cooperative organizations in Indonesia.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://koperasi.ahu.go.id/site/login" target="_blank" class="btn btn-sm btn-outline-light">
+                                    <i class="bi bi-link-45deg me-1"></i>Visit Site
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Projects -->
+            <div>
+                <h3 class="h4 text-secondary mb-4">Game Development</h3>
+                <div class="row g-4">
+                    <!-- Cyber Flapper -->
+                    <div class="col-md-6">
+                        <div class="project-card">
+                            <h4 class="project-title">Cyber Flapper</h4>
+                            <p class="project-description">
+                                A cyberpunk-themed take on the classic Flappy Bird game, featuring unique visual aesthetics and engaging gameplay.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://fayzard.itch.io/cyber-flapper" target="_blank" class="btn btn-sm btn-outline-light">
+                                    <i class="bi bi-joystick me-1"></i>Play Game
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
