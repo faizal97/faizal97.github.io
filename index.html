@@ -670,6 +670,89 @@
                 text-align: center;
             }
         }
+
+        /* Social Share Panel */
+        .social-share-panel {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .share-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .share-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .share-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(20px);
+            transition: all 0.3s ease;
+        }
+
+        .social-share-panel.active .share-buttons {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(0);
+        }
+
+        .share-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            color: #fff;
+            text-decoration: none;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+        }
+
+        .share-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-button.twitter:hover { background-color: #1DA1F2; }
+        .share-button.linkedin:hover { background-color: #0077B5; }
+        .share-button.facebook:hover { background-color: #4267B2; }
+        .share-button.email:hover { background-color: #EA4335; }
+        .share-button.copy:hover { background-color: var(--secondary-color); }
+
+        @media (max-width: 768px) {
+            .social-share-panel {
+                right: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1006,6 +1089,42 @@
             </a>
         </div>
     </section>
+
+    <!-- Social Share Panel -->
+    <div class="social-share-panel">
+        <button class="share-toggle" aria-label="Toggle share panel">
+            <i class="bi bi-share"></i>
+        </button>
+        <div class="share-buttons">
+            <a href="#" onclick="shareOnTwitter()" class="share-button twitter" aria-label="Share on Twitter">
+                <i class="bi bi-twitter"></i>
+            </a>
+            <a href="#" onclick="shareOnLinkedIn()" class="share-button linkedin" aria-label="Share on LinkedIn">
+                <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="#" onclick="shareOnFacebook()" class="share-button facebook" aria-label="Share on Facebook">
+                <i class="bi bi-facebook"></i>
+            </a>
+            <a href="#" onclick="shareViaEmail()" class="share-button email" aria-label="Share via Email">
+                <i class="bi bi-envelope"></i>
+            </a>
+            <button onclick="copyLink()" class="share-button copy" aria-label="Copy link">
+                <i class="bi bi-link-45deg"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="shareToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Link copied to clipboard!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -1538,6 +1657,65 @@
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Social Share Panel Toggle
+            const sharePanel = document.querySelector('.social-share-panel');
+            const shareToggle = document.querySelector('.share-toggle');
+            
+            shareToggle.addEventListener('click', () => {
+                sharePanel.classList.toggle('active');
+            });
+
+            // Close share panel when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!sharePanel.contains(e.target)) {
+                    sharePanel.classList.remove('active');
+                }
+            });
+
+            // Initialize toast
+            const shareToast = document.getElementById('shareToast');
+            const toast = new bootstrap.Toast(shareToast);
+
+            // Make toast object globally available
+            window.shareToast = toast;
+        });
+
+        // Social Share Functions
+        function shareOnTwitter() {
+            const text = "Check out Faizal Ardian Putra's Portfolio - Backend Developer & PHP Laravel Expert";
+            const url = window.location.href;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, 
+                       '_blank');
+        }
+
+        function shareOnLinkedIn() {
+            const url = window.location.href;
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+                       '_blank');
+        }
+
+        function shareOnFacebook() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+                       '_blank');
+        }
+
+        function shareViaEmail() {
+            const subject = "Check out Faizal Ardian Putra's Portfolio";
+            const body = `I thought you might be interested in checking out this portfolio:\n\n${window.location.href}`;
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                window.shareToast.show();
+            });
+        }
+
+        // Existing JavaScript code
+        // ...existing code...
     </script>
 
     <!--Start of Tawk.to Script-->
