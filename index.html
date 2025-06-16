@@ -307,6 +307,76 @@
             color: var(--secondary-color);
         }
 
+        /* Project Filters */
+        .project-filters select,
+        .project-filters input {
+            color: #ccd6f6 !important;
+        }
+
+        .project-filters select option {
+            background-color: var(--primary-color);
+        }
+
+        .project-filters .form-control::placeholder {
+            color: rgba(204, 214, 246, 0.5);
+        }
+
+        .project-filters .form-control:focus,
+        .project-filters .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(100, 255, 218, 0.25);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .active-filter {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: 4px;
+            padding: 4px 12px;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .active-filter:hover {
+            background-color: rgba(100, 255, 218, 0.2);
+        }
+
+        .active-filter .remove-filter {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .active-filter .remove-filter:hover {
+            opacity: 1;
+        }
+
+        .project-card {
+            transition: all 0.3s ease, filter 0.3s ease;
+        }
+
+        .project-card.hidden {
+            display: none;
+        }
+
+        .project-card.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .project-tech .badge {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-tech .badge:hover {
+            background-color: var(--secondary-color) !important;
+            color: var(--primary-color);
+        }
+
         /* Utility Classes */
         .highlight {
             color: var(--secondary-color);
@@ -537,10 +607,43 @@
         <div class="container">
             <h2 class="highlight mb-5">Featured Projects</h2>
             
+            <!-- Project Filters -->
+            <div class="project-filters mb-5">
+                <div class="d-flex flex-wrap gap-3 mb-4">
+                    <div class="input-group" style="max-width: 300px;">
+                        <span class="input-group-text bg-transparent text-light border-secondary">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" class="form-control bg-transparent text-light border-secondary" 
+                               id="projectSearch" 
+                               placeholder="Search projects...">
+                    </div>
+                    <select class="form-select bg-transparent text-light border-secondary" 
+                            id="categoryFilter" 
+                            style="max-width: 200px;">
+                        <option value="all">All Categories</option>
+                        <option value="professional">Professional</option>
+                        <option value="game">Game Development</option>
+                    </select>
+                    <select class="form-select bg-transparent text-light border-secondary" 
+                            id="techFilter" 
+                            style="max-width: 200px;">
+                        <option value="all">All Technologies</option>
+                        <option value="php">PHP</option>
+                        <option value="laravel">Laravel</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="unity">Unity</option>
+                    </select>
+                </div>
+                <div id="activeFilters" class="d-flex flex-wrap gap-2">
+                    <!-- Active filters will be added here dynamically -->
+                </div>
+            </div>
+
             <!-- Professional Projects -->
             <div class="mb-5">
                 <h3 class="h4 text-secondary mb-4">Professional Work</h3>
-                <div class="row g-4">
+                <div class="row g-4 projects-container">
                     <!-- TruTrip App -->
                     <div class="col-md-6">
                         <div class="project-card">
@@ -548,6 +651,11 @@
                             <p class="project-description">
                                 A comprehensive travel management platform for businesses, offering seamless booking and travel management solutions.
                             </p>
+                            <div class="project-tech mb-3">
+                                <span class="badge bg-secondary me-2" data-tech="php">PHP</span>
+                                <span class="badge bg-secondary me-2" data-tech="laravel">Laravel</span>
+                                <span class="badge bg-secondary" data-tech="javascript">JavaScript</span>
+                            </div>
                             <div class="project-links">
                                 <a href="https://app.trutrip.co" target="_blank" class="btn btn-sm btn-outline-light">
                                     <i class="bi bi-link-45deg me-1"></i>Visit Site
@@ -641,6 +749,128 @@
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const projectSearch = document.getElementById('projectSearch');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const techFilter = document.getElementById('techFilter');
+            const activeFilters = document.getElementById('activeFilters');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            let currentFilters = {
+                search: '',
+                category: 'all',
+                technologies: new Set()
+            };
+
+            // Initialize technology options
+            const techSet = new Set();
+            projectCards.forEach(card => {
+                const techBadges = card.querySelectorAll('.project-tech .badge');
+                techBadges.forEach(badge => {
+                    techSet.add(badge.getAttribute('data-tech'));
+                });
+            });
+
+            // Add click event to technology badges
+            document.querySelectorAll('.project-tech .badge').forEach(badge => {
+                badge.addEventListener('click', () => {
+                    const tech = badge.getAttribute('data-tech');
+                    if (!currentFilters.technologies.has(tech)) {
+                        currentFilters.technologies.add(tech);
+                        addActiveFilter('tech', tech);
+                        filterProjects();
+                    }
+                });
+            });
+
+            // Search input handler
+            projectSearch.addEventListener('input', debounce(function() {
+                currentFilters.search = this.value.toLowerCase();
+                filterProjects();
+            }, 300));
+
+            // Category filter handler
+            categoryFilter.addEventListener('change', function() {
+                currentFilters.category = this.value;
+                filterProjects();
+            });
+
+            // Tech filter handler
+            techFilter.addEventListener('change', function() {
+                const tech = this.value;
+                if (tech !== 'all' && !currentFilters.technologies.has(tech)) {
+                    currentFilters.technologies.add(tech);
+                    addActiveFilter('tech', tech);
+                    filterProjects();
+                }
+            });
+
+            function addActiveFilter(type, value) {
+                const filterElement = document.createElement('span');
+                filterElement.className = 'active-filter';
+                filterElement.innerHTML = `
+                    ${value}
+                    <span class="remove-filter" data-type="${type}" data-value="${value}">
+                        <i class="bi bi-x"></i>
+                    </span>
+                `;
+                activeFilters.appendChild(filterElement);
+
+                // Add remove event
+                filterElement.querySelector('.remove-filter').addEventListener('click', () => {
+                    if (type === 'tech') {
+                        currentFilters.technologies.delete(value);
+                    }
+                    filterElement.remove();
+                    filterProjects();
+                });
+            }
+
+            function filterProjects() {
+                projectCards.forEach(card => {
+                    const title = card.querySelector('.project-title').textContent.toLowerCase();
+                    const description = card.querySelector('.project-description').textContent.toLowerCase();
+                    const technologies = Array.from(card.querySelectorAll('.project-tech .badge')).map(badge => 
+                        badge.getAttribute('data-tech')
+                    );
+                    const category = card.closest('section').querySelector('h3').textContent.toLowerCase();
+
+                    const matchesSearch = currentFilters.search === '' || 
+                        title.includes(currentFilters.search) || 
+                        description.includes(currentFilters.search);
+
+                    const matchesCategory = currentFilters.category === 'all' || 
+                        category.includes(currentFilters.category.toLowerCase());
+
+                    const matchesTech = currentFilters.technologies.size === 0 || 
+                        [...currentFilters.technologies].every(tech => technologies.includes(tech));
+
+                    if (matchesSearch && matchesCategory && matchesTech) {
+                        card.classList.remove('fade-out');
+                        setTimeout(() => card.classList.remove('hidden'), 300);
+                    } else {
+                        card.classList.add('fade-out');
+                        setTimeout(() => card.classList.add('hidden'), 300);
+                    }
+                });
+            }
+
+            // Utility function for debouncing
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func.apply(this, args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+        });
+    </script>
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
