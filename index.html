@@ -98,6 +98,17 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Particles Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         /* Theme Toggle Button */
         .theme-toggle {
             color: var(--text-primary) !important;
@@ -757,6 +768,8 @@
     </style>
 </head>
 <body>
+    <div id="particles-js"></div>
+
     <!-- Loading Screen -->
     <div class="loader-wrapper">
         <div class="loader"></div>
@@ -1718,11 +1731,9 @@
         // Typed.js initialization for hero section
         document.addEventListener('DOMContentLoaded', function() {
             const typed = new Typed('.hero-section h1', {
-                strings: ["Faizal Ardian Putra", "a Backend Developer", "PHP & Laravel Expert"],
+                strings: ["Faizal Ardian Putra"],
                 typeSpeed: 70,
-                backSpeed: 50,
                 backDelay: 1500,
-                loop: true,
                 showCursor: false
             });
         });
@@ -1742,6 +1753,91 @@
             typeSpeed: 30,
             startDelay: 1000,
             showCursor: false
+        });
+    </script>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        function getParticleColor() {
+            const style = getComputedStyle(document.documentElement);
+            return style.getPropertyValue('--text-color').trim();
+        }
+        
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 50,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: getParticleColor()
+                    },
+                    shape: {
+                        type: "circle"
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: false
+                    },
+                    size: {
+                        value: 3,
+                        random: true
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: getParticleColor(),
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: false,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "grab"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        },
+                        resize: true
+                    }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Initialize particles
+        initParticles();
+
+        // Update particles when theme changes
+        const observer = new MutationObserver(() => {
+            if (window.pJSDom && window.pJSDom[0]) {
+                window.pJSDom[0].pJS.particles.color.value = getParticleColor();
+                window.pJSDom[0].pJS.particles.line_linked.color = getParticleColor();
+                window.pJSDom[0].pJS.fn.particlesRefresh();
+            }
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
         });
     </script>
 
