@@ -32,6 +32,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
     
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -560,6 +561,95 @@
             display: none;
         }
 
+        /* Project Carousel Styles */
+        .projects-wrapper {
+            position: relative;
+            padding: 20px;
+        }
+
+        .project-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--text-primary);
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .projectSwiper {
+            padding: 50px 20px !important;
+        }
+
+        .swiper-slide {
+            height: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        .swiper-slide-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .project-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .project-content {
+            flex-grow: 1;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--secondary-color) !important;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            transform: scale(1.1);
+        }
+
+        .swiper-pagination-bullet {
+            background: var(--text-secondary) !important;
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--secondary-color) !important;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .projectSwiper {
+                padding: 30px 10px !important;
+            }
+
+            .project-card {
+                padding: 20px;
+            }
+        }
+
         /* Responsive Styles */
         @media (max-width: 991px) {
             .profile-image-wrapper {
@@ -918,6 +1008,7 @@
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
     <script>
         // Theme switching functionality
@@ -1129,6 +1220,200 @@
                     timelineItems.forEach(other => {
                         other.style.opacity = '1';
                     });
+                });
+            });
+        });
+
+        // Loading screen
+        window.addEventListener('load', function() {
+            const loader = document.querySelector('.loader-wrapper');
+            setTimeout(() => {
+                loader.classList.add('fade-out');
+                // Start initial animations after loader fades
+                startPageAnimations();
+            }, 1000);
+        });
+
+        function startPageAnimations() {
+            // Animate hero section text
+            const heroTexts = document.querySelectorAll('.hero-section h1, .hero-section h2, .hero-section p');
+            heroTexts.forEach((text, index) => {
+                setTimeout(() => {
+                    text.classList.add('visible');
+                }, index * 200);
+            });
+
+            // Initialize scroll animations
+            observeElements();
+        }
+
+        // Scroll animation observer
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('experience-card')) {
+                            animateExperienceCard(entry.target);
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px'
+            });
+
+            // Observe experience cards
+            document.querySelectorAll('.experience-card').forEach(card => {
+                card.classList.add('fade-in');
+                observer.observe(card);
+            });
+
+            // Observe section headings
+            document.querySelectorAll('section h2').forEach(heading => {
+                heading.classList.add('fade-in');
+                observer.observe(heading);
+            });
+
+            // Observe paragraphs and other elements
+            document.querySelectorAll('section p, .social-links').forEach(element => {
+                element.classList.add('fade-in');
+                observer.observe(element);
+            });
+        }
+
+        function animateExperienceCard(card) {
+            const elements = card.querySelectorAll('h3, h4, ul li, .badge');
+            elements.forEach((element, index) => {
+                element.classList.add('animate-text');
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, index * 100);
+            });
+        }
+
+        // Existing smooth scroll code
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            const navbarToggler = document.querySelector('.navbar-toggler');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get the target section
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    // Calculate header height for offset
+                    const headerHeight = document.querySelector('.navbar').offsetHeight;
+                    
+                    // Scroll to section with offset
+                    window.scrollTo({
+                        top: targetSection.offsetTop - headerHeight,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navbarCollapse.classList.contains('show')) {
+                        navbarToggler.click();
+                    }
+                });
+            });
+            
+            // Update active state on scroll
+            window.addEventListener('scroll', function() {
+                let current = '';
+                const sections = document.querySelectorAll('section');
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navHeight - 10;
+                    if (window.pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Swiper
+            const swiper = new Swiper('.projectSwiper', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: false,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    }
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                }
+            });
+
+            // Category filtering
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const projectSlides = document.querySelectorAll('.swiper-slide');
+
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const category = btn.getAttribute('data-category');
+                    
+                    projectSlides.forEach(slide => {
+                        if (category === 'all' || slide.getAttribute('data-category') === category) {
+                            slide.classList.remove('swiper-slide-hidden');
+                        } else {
+                            slide.classList.add('swiper-slide-hidden');
+                        }
+                    });
+
+                    // Update Swiper
+                    swiper.update();
+                    swiper.slideTo(0);
+                });
+            });
+
+            // Add hover effect to project cards
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 10px 30px rgba(100, 255, 218, 0.1)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
                 });
             });
         });
