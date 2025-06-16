@@ -807,10 +807,9 @@
                 <div class="col-lg-8">
                     <h5 class="highlight mb-3">Hi, my name is</h5>
                     <h1 class="display-4 fw-bold mb-4">Faizal Ardian Putra</h1>
-                    <h2 class="display-6 text-secondary mb-4">Backend Developer</h2>
+                    <h2 class="display-6 text-secondary mb-4"><span id="typed-strings">Backend Developer</span></h2>
                     <p class="lead text-secondary">
-                        I'm a backend developer specializing in building robust and scalable web applications. 
-                        Currently, I'm focused on developing travel-related services at TruTrip.
+                        <span id="typed-bio"></span>
                     </p>
                     <div class="social-links mt-4">
                         <a href="https://github.com/faizal97" target="_blank"><i class="bi bi-github"></i></a>
@@ -1129,6 +1128,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
     <script>
         // Theme switching functionality
@@ -1715,8 +1715,34 @@
             });
         }
 
-        // Existing JavaScript code
-        // ...existing code...
+        // Typed.js initialization for hero section
+        document.addEventListener('DOMContentLoaded', function() {
+            const typed = new Typed('.hero-section h1', {
+                strings: ["Faizal Ardian Putra", "a Backend Developer", "PHP & Laravel Expert"],
+                typeSpeed: 70,
+                backSpeed: 50,
+                backDelay: 1500,
+                loop: true,
+                showCursor: false
+            });
+        });
+
+        // Initialize Typed.js for role
+        new Typed('#typed-strings', {
+            strings: ['Backend Developer', 'PHP Developer', 'Laravel Expert'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            backDelay: 2000
+        });
+
+        // Initialize Typed.js for bio
+        new Typed('#typed-bio', {
+            strings: ["I'm a backend developer specializing in building robust and scalable web applications. Currently, I'm focused on developing travel-related services at TruTrip."],
+            typeSpeed: 30,
+            startDelay: 1000,
+            showCursor: false
+        });
     </script>
 
     <!--Start of Tawk.to Script-->
