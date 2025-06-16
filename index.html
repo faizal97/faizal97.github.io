@@ -54,145 +54,14 @@
     </script>
     
     <style>
-        /* Loader Styles */
-        .loader-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
-        }
-
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--text-color);
-            border-radius: 50%;
-            border-top-color: var(--secondary-color);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-
-        .fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Scroll Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Staggered Text Animation */
-        .animate-text {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        }
-
-        .animate-text.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Enhanced Hover Animations */
-        .social-links a {
-            transform: translateY(0);
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            transform: translateY(-3px);
-        }
-
-        .experience-card {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
-        }
-
-        .experience-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .experience-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 20px rgba(100, 255, 218, 0.1);
-        }
-
-        /* Profile Image Styles */
-        .profile-image-wrapper {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
-        }
-
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 2px solid var(--secondary-color);
-            filter: grayscale(20%);
-            transition: all 0.3s ease;
-        }
-
-        .profile-image:hover {
-            filter: grayscale(0%);
-            transform: scale(1.02);
-        }
-
-        .profile-image-wrapper::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--secondary-color);
-            top: 15px;
-            left: 15px;
-            border-radius: 10px;
-            z-index: -1;
-            transition: all 0.3s ease;
-        }
-
-        .profile-image-wrapper:hover::after {
-            top: 10px;
-            left: 10px;
-        }
-
-        @media (max-width: 991px) {
-            .profile-image-wrapper {
-                margin: 40px auto 0;
-                width: 250px;
-                height: 250px;
-            }
-        }
-
-        /* Rest of your existing styles */
+        /* CSS Variables */
         :root {
             --primary-color: #0a192f;
             --secondary-color: #64ffda;
             --text-color: #8892b0;
         }
-        
+
+        /* Base Styles */
         html {
             scroll-behavior: smooth;
         }
@@ -203,6 +72,7 @@
             color: #ccd6f6;
         }
 
+        /* Layout & Sections */
         .navbar {
             background-color: rgba(10, 25, 47, 0.85);
             backdrop-filter: blur(10px);
@@ -219,23 +89,7 @@
             padding: 100px 0;
         }
 
-        .experience-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 25px;
-            transition: transform 0.3s ease;
-        }
-
-        .experience-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .highlight {
-            color: var(--secondary-color);
-        }
-
+        /* Navigation Styles */
         .nav-link {
             color: #ccd6f6 !important;
             margin: 0 15px;
@@ -261,15 +115,147 @@
             width: 100%;
         }
 
+        /* Profile Image Styles */
+        .profile-image-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            opacity: 1;
+            transform: none;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid var(--secondary-color);
+            filter: grayscale(20%);
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: none;
+        }
+
+        .profile-image:hover {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+
+        .profile-image-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--secondary-color);
+            top: 15px;
+            left: 15px;
+            border-radius: 10px;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .profile-image-wrapper:hover::after {
+            top: 10px;
+            left: 10px;
+        }
+
+        /* Card Styles */
+        .experience-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(100, 255, 218, 0.1);
+        }
+
+        /* Social Links */
         .social-links a {
             color: #ccd6f6;
             margin: 0 10px;
             font-size: 1.5rem;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         .social-links a:hover {
             color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Utility Classes */
+        .highlight {
+            color: var(--secondary-color);
+        }
+
+        /* Loading Animation */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--text-color);
+            border-radius: 50%;
+            border-top-color: var(--secondary-color);
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-text {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+
+        .animate-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            .profile-image-wrapper {
+                margin: 40px auto 0;
+                width: 250px;
+                height: 250px;
+            }
         }
     </style>
 </head>
