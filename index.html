@@ -188,6 +188,31 @@
             transform: translateY(-3px);
         }
 
+        /* Resume Button */
+        .resume-button {
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .resume-button:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .resume-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .resume-button:hover i {
+            transform: translateX(3px);
+        }
+
         /* Utility Classes */
         .highlight {
             color: var(--secondary-color);
@@ -283,6 +308,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="resume.html" target="_blank">Resume</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -304,6 +332,11 @@
                         <a href="https://github.com/faizalardian" target="_blank"><i class="bi bi-github"></i></a>
                         <a href="https://linkedin.com/in/faizalardian" target="_blank"><i class="bi bi-linkedin"></i></a>
                         <a href="mailto:faizalardianputra@yahoo.co.id"><i class="bi bi-envelope"></i></a>
+                    </div>
+                    <div class="mt-4">
+                        <a href="resume.html" target="_blank" class="btn btn-outline-light resume-button">
+                            <i class="bi bi-file-text me-2"></i>View Resume
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-4">
