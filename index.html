@@ -54,6 +54,90 @@
     </script>
     
     <style>
+        /* Loader Styles */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--text-color);
+            border-radius: 50%;
+            border-top-color: var(--secondary-color);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Scroll Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Text Animation */
+        .animate-text {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+
+        .animate-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced Hover Animations */
+        .social-links a {
+            transform: translateY(0);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        .experience-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+        }
+
+        .experience-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(100, 255, 218, 0.1);
+        }
+
+        /* Rest of your existing styles */
         :root {
             --primary-color: #0a192f;
             --secondary-color: #64ffda;
@@ -141,6 +225,11 @@
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -266,6 +355,75 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            const loader = document.querySelector('.loader-wrapper');
+            setTimeout(() => {
+                loader.classList.add('fade-out');
+                // Start initial animations after loader fades
+                startPageAnimations();
+            }, 1000);
+        });
+
+        function startPageAnimations() {
+            // Animate hero section text
+            const heroTexts = document.querySelectorAll('.hero-section h1, .hero-section h2, .hero-section p');
+            heroTexts.forEach((text, index) => {
+                setTimeout(() => {
+                    text.classList.add('visible');
+                }, index * 200);
+            });
+
+            // Initialize scroll animations
+            observeElements();
+        }
+
+        // Scroll animation observer
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('experience-card')) {
+                            animateExperienceCard(entry.target);
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px'
+            });
+
+            // Observe experience cards
+            document.querySelectorAll('.experience-card').forEach(card => {
+                card.classList.add('fade-in');
+                observer.observe(card);
+            });
+
+            // Observe section headings
+            document.querySelectorAll('section h2').forEach(heading => {
+                heading.classList.add('fade-in');
+                observer.observe(heading);
+            });
+
+            // Observe paragraphs and other elements
+            document.querySelectorAll('section p, .social-links').forEach(element => {
+                element.classList.add('fade-in');
+                observer.observe(element);
+            });
+        }
+
+        function animateExperienceCard(card) {
+            const elements = card.querySelectorAll('h3, h4, ul li, .badge');
+            elements.forEach((element, index) => {
+                element.classList.add('animate-text');
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, index * 100);
+            });
+        }
+
+        // Existing smooth scroll code
         document.addEventListener('DOMContentLoaded', function() {
             // Get all navigation links
             const navLinks = document.querySelectorAll('.nav-link');
