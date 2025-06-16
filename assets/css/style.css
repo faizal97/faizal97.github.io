@@ -1,0 +1,25 @@
+/* Section Spacing */
+.navbar {
+    padding: 1rem 0;
+}
+
+.hero-section {
+    padding-top: 120px;  /* Increased spacing from nav */
+    padding-bottom: 80px;
+}
+
+.section {
+    padding: 100px 0;  /* Increased spacing between sections */
+}
+
+/* Add some breathing room between sections on mobile */
+@media (max-width: 768px) {
+    .hero-section {
+        padding-top: 100px;
+        padding-bottom: 60px;
+    }
+    
+    .section {
+        padding: 70px 0;
+    }
+}
