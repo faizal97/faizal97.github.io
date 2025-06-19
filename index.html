@@ -29,7 +29,8 @@
     
     <!-- Preload critical resources -->
     <link rel="preload" href="assets/css/style.css" as="style">
-    <link rel="preload" href="profile_photo.jpeg" as="image">
+    <link rel="preload" href="profile_photo.webp" as="image" type="image/webp">
+    <link rel="preload" href="profile_photo.jpeg" as="image" type="image/jpeg">
     
     <!-- Optimized Font Loading -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -261,13 +262,16 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="profile-image-wrapper fade-in">
-                        <img src="profile_photo.jpeg" 
-                             alt="Faizal Ardian Putra - API Architect & Travel Tech Specialist" 
-                             class="profile-image"
-                             loading="eager"
-                             decoding="async"
-                             width="320"
-                             height="320">
+                        <picture>
+                            <source srcset="profile_photo.webp" type="image/webp">
+                            <img src="profile_photo.jpeg" 
+                                 alt="Faizal Ardian Putra - API Architect & Travel Tech Specialist" 
+                                 class="profile-image"
+                                 loading="eager"
+                                 decoding="async"
+                                 width="320"
+                                 height="320">
+                        </picture>
                     </div>
                 </div>
             </div>
@@ -869,6 +873,19 @@
     <script>
         // Typed text effect for hero section
         document.addEventListener('DOMContentLoaded', function() {
+            // Register Service Worker for PWA functionality
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(function(registration) {
+                            console.log('✅ Service Worker registered successfully:', registration.scope);
+                        })
+                        .catch(function(error) {
+                            console.log('❌ Service Worker registration failed:', error);
+                        });
+                });
+            }
+            
             const typedBio = document.getElementById('typed-bio');
             const bioText = "Building scalable APIs and travel technology solutions that make people's lives easier. Specialized in PHP/Laravel with expertise in government systems and business travel management.";
             let i = 0;
