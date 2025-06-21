@@ -1574,3 +1574,131 @@ textarea:focus-visible {
         -webkit-text-fill-color: #059669 !important;
     }
 }
+
+/* Repository Page Specific Styles */
+.filter-btn {
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--bg-color);
+}
+
+.filter-btn.active:hover {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--bg-color);
+    opacity: 0.9;
+}
+
+.repositories-page .form-control, 
+.repositories-page .form-select {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text-primary) !important;
+    backdrop-filter: blur(10px);
+}
+
+.repositories-page .form-control:focus, 
+.repositories-page .form-select:focus {
+    background: var(--card-bg) !important;
+    border-color: var(--secondary-color) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 212, 170, 0.25) !important;
+}
+
+.repositories-page .form-control::placeholder {
+    color: var(--text-muted) !important;
+}
+
+.repositories-page .form-select option {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Repository card hover effects */
+.repo-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.repo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Language dot styling */
+.language-dot {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Loading spinner color */
+.spinner-border.text-primary {
+    color: var(--secondary-color) !important;
+}
+
+/* Repository page text visibility fixes */
+.repositories-page .experience-card h5 a {
+    color: var(--text-primary) !important;
+}
+
+.repositories-page .experience-card p {
+    color: var(--text-secondary) !important;
+}
+
+.repositories-page .experience-card .small {
+    color: var(--text-muted) !important;
+}
+
+.repositories-page .experience-card small {
+    color: var(--text-muted) !important;
+}
+
+/* Repository statistics section */
+.repositories-page #repoStats .h5 {
+    color: var(--text-primary) !important;
+    font-weight: 600;
+}
+
+.repositories-page #repoStats small {
+    color: var(--text-muted) !important;
+    font-weight: 500;
+}
+
+/* Form controls styling for better contrast */
+.repositories-page .form-control,
+.repositories-page .form-select {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text-primary) !important;
+}
+
+.repositories-page .form-control:focus,
+.repositories-page .form-select:focus {
+    background: var(--card-bg) !important;
+    border-color: var(--secondary-color) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 212, 170, 0.25) !important;
+}
+
+.repositories-page .form-control::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.8;
+}
+
+.repositories-page .form-select option {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
