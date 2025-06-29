@@ -28,11 +28,12 @@ export function About() {
               className="text-body-lg text-muted-foreground text-center leading-relaxed"
               variants={fadeInUp}
             >
-              I&apos;m a passionate API Architect and Travel Technology
-              Specialist with over 5 years of experience building scalable web
-              applications. I specialize in PHP/Laravel development and have a
-              proven track record of delivering high-performance solutions for
-              travel booking systems and government applications.
+              Backend Developer with 5+ years of experience specializing in PHP
+              and Laravel framework. I have proven expertise in building
+              scalable web applications, REST APIs, and integrating third-party
+              services for travel, government, and educational sectors. Strong
+              background in system architecture, database optimization, and team
+              collaboration.
             </motion.p>
 
             <motion.div
@@ -56,10 +57,10 @@ export function About() {
                   className="text-3xl font-bold text-primary mb-2"
                   variants={fadeInUp}
                 >
-                  10M+
+                  50+
                 </motion.div>
                 <motion.p className="text-muted-foreground" variants={fadeInUp}>
-                  API Requests Daily
+                  API Integrations
                 </motion.p>
               </motion.div>
 
@@ -68,10 +69,10 @@ export function About() {
                   className="text-3xl font-bold text-primary mb-2"
                   variants={fadeInUp}
                 >
-                  20+
+                  15+
                 </motion.div>
                 <motion.p className="text-muted-foreground" variants={fadeInUp}>
-                  Projects Delivered
+                  Projects Completed
                 </motion.p>
               </motion.div>
             </motion.div>

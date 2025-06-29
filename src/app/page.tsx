@@ -13,8 +13,8 @@ export default function Home() {
       <Navigation />
       <Hero
         name="Faizal Ardian Putra"
-        title="API Architect & Travel Tech Specialist"
-        description="Building scalable travel booking systems and government applications with 5+ years of expertise in PHP/Laravel development."
+        title="Backend Developer"
+        description="Backend Developer with 5+ years of experience specializing in PHP and Laravel framework. Proven expertise in building scalable web applications, REST APIs, and integrating third-party services for travel, government, and educational sectors."
         profileImage={{
           src: '/profile_photo.webp',
           alt: 'Faizal Ardian Putra',

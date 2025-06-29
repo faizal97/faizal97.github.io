@@ -43,7 +43,7 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
                 variant="ghost"
                 size="sm"
                 onClick={() =>
-                  window.open('https://github.com/faizal97', '_blank')
+                  window.open('https://github.com/faizalardian', '_blank')
                 }
                 className="w-10 h-10 p-0"
                 aria-label="GitHub Profile"
@@ -54,10 +54,7 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
                 variant="ghost"
                 size="sm"
                 onClick={() =>
-                  window.open(
-                    'https://linkedin.com/in/faizal-ardian-putra',
-                    '_blank'
-                  )
+                  window.open('https://linkedin.com/in/faizalardian', '_blank')
                 }
                 className="w-10 h-10 p-0"
                 aria-label="LinkedIn Profile"
@@ -69,7 +66,7 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
                 size="sm"
                 onClick={() =>
                   (window.location.href =
-                    'mailto:faizal.ardian.putra@gmail.com')
+                    'mailto:faizalardianputra@yahoo.co.id')
                 }
                 className="w-10 h-10 p-0"
                 aria-label="Mail Contact"

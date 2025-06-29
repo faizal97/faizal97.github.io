@@ -21,20 +21,39 @@ export function Experience() {
 
   const experiences = [
     {
-      title: 'Senior Backend Developer',
-      company: 'Travel Tech Solutions',
-      period: '2022 - Present',
+      title: 'Backend Developer',
+      company: 'TruTrip',
+      period: 'January 2020 - Present',
       description:
-        'Lead development of scalable travel booking APIs serving 10M+ requests daily.',
-      technologies: ['PHP', 'Laravel', 'MySQL', 'Redis', 'AWS'],
+        'Developed and maintained REST API applications supporting core business operations for travel services. Built COVID-19 case tracking system (CEC) for global pandemic data monitoring.',
+      technologies: [
+        'PHP',
+        'Laravel',
+        'REST APIs',
+        'MySQL',
+        'Third-party APIs',
+      ],
     },
     {
-      title: 'Full Stack Developer',
-      company: 'Government Digital Services',
-      period: '2020 - 2022',
+      title: 'PHP Programmer',
+      company: 'Docotel Group',
+      period: 'November 2018 - December 2019',
       description:
-        'Built citizen-facing web applications and government internal systems.',
-      technologies: ['PHP', 'Laravel', 'Vue.js', 'PostgreSQL', 'Docker'],
+        'Developed web applications following project specifications and architectural designs. Focused on government sector applications for Ministry of Law and Human Rights.',
+      technologies: ['PHP', 'Web Development', 'DevOps', 'Database Design'],
+    },
+    {
+      title: 'Assistant Lecturer',
+      company: 'Bina Sarana Informatika (BSI)',
+      period: 'September 2017 - October 2018',
+      description:
+        'Assisted with course instruction and practical laboratory sessions. Mentored students through hands-on learning exercises and technical coursework.',
+      technologies: [
+        'Teaching',
+        'Mentoring',
+        'Programming Education',
+        'Technical Training',
+      ],
     },
   ];
 
