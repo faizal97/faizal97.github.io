@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import QueryProvider from '@/components/layout/QueryProvider';
+import { VercelAnalytics, VercelSpeedInsights } from '@/lib/analytics';
+import { AnalyticsProvider } from '@/components/layout/AnalyticsProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,12 +35,21 @@ export const metadata: Metadata = {
     description:
       'API Architect & Travel Technology Specialist with 5+ years experience. Expert in PHP/Laravel, building scalable travel booking systems, government applications, and business travel management solutions.',
     siteName: 'Faizal Ardian Putra Portfolio',
+    images: [
+      {
+        url: 'https://faizal97.github.io/profile_photo.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Faizal Ardian Putra - API Architect & Travel Tech Specialist',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Faizal Ardian Putra - API Architect & Travel Tech Specialist',
     description:
       'API Architect & Travel Technology Specialist with 5+ years experience. Expert in PHP/Laravel, building scalable travel booking systems, government applications, and business travel management solutions.',
+    images: ['https://faizal97.github.io/profile_photo.webp'],
   },
   robots: {
     index: true,
@@ -71,8 +82,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <AnalyticsProvider>{children}</AnalyticsProvider>
+          </QueryProvider>
         </ThemeProvider>
+        <VercelAnalytics />
+        <VercelSpeedInsights />
       </body>
     </html>
   );

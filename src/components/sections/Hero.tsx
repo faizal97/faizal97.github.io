@@ -18,11 +18,18 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
   };
 
   return (
-    <section className="min-h-screen flex items-center pt-16" id="hero">
+    <section
+      className="min-h-screen flex items-center pt-16"
+      id="hero"
+      role="region"
+      aria-labelledby="hero-heading"
+    >
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h1 className="text-hero font-bold text-primary">{name}</h1>
+            <h1 className="text-hero font-bold text-primary" id="hero-heading">
+              {name}
+            </h1>
 
             <p className="text-xl text-muted-foreground">{title}</p>
 
@@ -39,6 +46,7 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
                   window.open('https://github.com/faizal97', '_blank')
                 }
                 className="w-10 h-10 p-0"
+                aria-label="GitHub Profile"
               >
                 <Github className="w-5 h-5" />
               </Button>
@@ -52,6 +60,7 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
                   )
                 }
                 className="w-10 h-10 p-0"
+                aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-5 h-5" />
               </Button>
@@ -63,6 +72,7 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
                     'mailto:faizal.ardian.putra@gmail.com')
                 }
                 className="w-10 h-10 p-0"
+                aria-label="Mail Contact"
               >
                 <Mail className="w-5 h-5" />
               </Button>
