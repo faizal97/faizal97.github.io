@@ -102,7 +102,7 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
                 alt={profileImage.alt}
                 width={320}
                 height={320}
-                priority
+                priority={true}
                 className="object-cover"
                 sizes="(max-width: 768px) 240px, 320px"
               />
