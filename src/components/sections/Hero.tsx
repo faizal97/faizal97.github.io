@@ -43,7 +43,7 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
                 variant="ghost"
                 size="sm"
                 onClick={() =>
-                  window.open('https://github.com/faizalardian', '_blank')
+                  window.open('https://github.com/faizal97', '_blank')
                 }
                 className="w-10 h-10 p-0"
                 aria-label="GitHub Profile"
