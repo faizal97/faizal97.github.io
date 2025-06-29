@@ -92,7 +92,7 @@ export const scaleIn: Variants = {
     scale: 1,
     transition: {
       duration: ANIMATION_DURATION.normal,
-      ease: EASING.spring,
+      ease: EASING.easeOut,
     },
   },
 };
@@ -182,7 +182,7 @@ export const spin = {
   rotate: 360,
   transition: {
     duration: 1,
-    ease: 'linear',
+    ease: EASING.easeOut,
     repeat: Infinity,
   },
 };
@@ -252,7 +252,7 @@ export const heroTitle: Variants = {
     y: 0,
     transition: {
       duration: ANIMATION_DURATION.slow,
-      ease: EASING.spring,
+      ease: EASING.easeOut,
     },
   },
 };
@@ -267,7 +267,7 @@ export const heroImage: Variants = {
     scale: 1,
     transition: {
       duration: ANIMATION_DURATION.slow,
-      ease: EASING.spring,
+      ease: EASING.easeOut,
     },
   },
 };
