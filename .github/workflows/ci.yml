@@ -325,4 +325,4 @@ jobs:
         if: needs.deploy.result == 'failure'
         run: |
           echo "❌ Deployment failed!"
-          echo "🔍 Check the logs for more details." 
+          echo "🔍 Check the logs for more details."

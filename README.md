@@ -3,8 +3,9 @@
 ## Professional Experience
 
 ### Backend Developer at TruTrip
+
 **Full-time · Jan 2020 - Present**  
-*Greater Jakarta Area, Indonesia*
+_Greater Jakarta Area, Indonesia_
 
 - Developed and maintained REST API web applications to support core business operations
 - Integrated third-party APIs for secure user data management and storage solutions
@@ -14,8 +15,9 @@
 **Technologies:** PHP, Laravel
 
 ### PHP Programmer at Docotel Group
+
 **Contract · Nov 2018 - Dec 2019**  
-*Indonesia*
+_Indonesia_
 
 - Developed web applications following detailed project specifications, mockups, and architectural designs
 - Maintained application data integrity and resolved technical issues while serving as interim DevOps engineer
@@ -25,8 +27,9 @@
 **Technologies:** PHP
 
 ### Assistant Lecturer at Bina Sarana Informatika (BSI)
+
 **Sep 2017 - Oct 2018**  
-*Jatiwaringin*
+_Jatiwaringin_
 
 - Assisted lecturers with course instruction and provided support during practical laboratory sessions
 - Mentored students during hands-on learning exercises and guided them through technical coursework
