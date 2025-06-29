@@ -1,67 +1,104 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { HeroProps } from '@/types/components';
-import { ProfileImage } from '@/components/common/ProfileImage';
-import { SocialLinks } from '@/components/common/SocialLinks';
-import { ResumeButtons } from '@/components/common/ResumeButtons';
-import { heroContainer, heroTitle, staggerItem } from '@/lib/animations';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Download, ExternalLink, Github, Linkedin, Mail } from 'lucide-react';
 
 export function Hero({ name, title, description, profileImage }: HeroProps) {
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = '/resume.pdf';
+    link.download = 'Faizal_Ardian_Putra_Resume.pdf';
+    link.click();
+  };
+
+  const handleViewProjects = () => {
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="min-h-screen flex items-center pt-16" id="hero">
       <div className="container mx-auto px-4">
-        <motion.div
-          className="grid lg:grid-cols-2 gap-12 items-center"
-          variants={heroContainer}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div className="space-y-6" variants={staggerItem}>
-            <motion.h1
-              className="text-hero font-bold text-gradient-primary"
-              variants={heroTitle}
-            >
-              {name}
-            </motion.h1>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <h1 className="text-hero font-bold text-primary">{name}</h1>
 
-            <motion.p
-              className="text-xl text-muted-foreground"
-              variants={staggerItem}
-            >
-              {title}
-            </motion.p>
+            <p className="text-xl text-muted-foreground">{title}</p>
 
-            <motion.p
-              className="text-body-lg text-muted-foreground max-w-lg"
-              variants={staggerItem}
-            >
+            <p className="text-body-lg text-muted-foreground max-w-lg">
               {description}
-            </motion.p>
+            </p>
 
             {/* Social Links */}
-            <motion.div variants={staggerItem}>
-              <SocialLinks />
-            </motion.div>
+            <div className="flex gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() =>
+                  window.open('https://github.com/faizal97', '_blank')
+                }
+                className="w-10 h-10 p-0"
+              >
+                <Github className="w-5 h-5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() =>
+                  window.open(
+                    'https://linkedin.com/in/faizal-ardian-putra',
+                    '_blank'
+                  )
+                }
+                className="w-10 h-10 p-0"
+              >
+                <Linkedin className="w-5 h-5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() =>
+                  (window.location.href =
+                    'mailto:faizal.ardian.putra@gmail.com')
+                }
+                className="w-10 h-10 p-0"
+              >
+                <Mail className="w-5 h-5" />
+              </Button>
+            </div>
 
             {/* Action Buttons */}
-            <motion.div variants={staggerItem}>
-              <ResumeButtons />
-            </motion.div>
-          </motion.div>
+            <div className="flex flex-wrap gap-4">
+              <Button
+                size="lg"
+                onClick={handleDownload}
+                className="bg-primary hover:bg-primary/90"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Download Resume
+              </Button>
+              <Button variant="outline" size="lg" onClick={handleViewProjects}>
+                <ExternalLink className="w-4 h-4 mr-2" />
+                View Projects
+              </Button>
+            </div>
+          </div>
 
-          <motion.div className="flex justify-center" variants={staggerItem}>
-            <ProfileImage
-              src={profileImage.src}
-              alt={profileImage.alt}
-              width={320}
-              height={320}
-              priority
-              enableHover
-              enableGlow
-            />
-          </motion.div>
-        </motion.div>
+          <div className="flex justify-center">
+            <div className="relative overflow-hidden rounded-2xl">
+              <Image
+                src={profileImage.src}
+                alt={profileImage.alt}
+                width={320}
+                height={320}
+                priority
+                className="object-cover"
+                sizes="(max-width: 768px) 240px, 320px"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

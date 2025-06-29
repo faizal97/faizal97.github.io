@@ -36,7 +36,6 @@ export function ProfileImage({
         enableHover
           ? {
               scale: 1.05,
-              rotate: 2,
               transition: { duration: 0.3, ease: 'easeOut' },
             }
           : undefined

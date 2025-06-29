@@ -15,9 +15,9 @@ export const ANIMATION_DURATION = {
 
 // Easing functions
 export const EASING = {
-  easeOut: [0.0, 0.0, 0.2, 1],
-  easeIn: [0.4, 0.0, 1, 1],
-  easeInOut: [0.4, 0.0, 0.2, 1],
+  easeOut: 'easeOut',
+  easeIn: 'easeIn',
+  easeInOut: 'easeInOut',
   spring: { type: 'spring', damping: 25, stiffness: 120 },
   bouncy: { type: 'spring', damping: 15, stiffness: 100 },
 } as const;
