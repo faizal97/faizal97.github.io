@@ -1,0 +1,7 @@
+.next
+node_modules
+out
+backup-static-site
+*.log
+.DS_Store
+pnpm-lock.yaml
