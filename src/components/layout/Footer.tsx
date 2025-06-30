@@ -7,7 +7,7 @@ export function Footer() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-sm text-muted-foreground">
-            © 2024 Faizal Ardian Putra. All rights reserved.
+            © 2025 Faizal Ardian Putra. All rights reserved.
           </div>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <Link

@@ -24,45 +24,48 @@ export function Projects() {
 
   const projects = [
     {
-      name: 'Travel Booking API',
+      name: 'TruTrip API',
       description:
-        'Scalable REST API for travel bookings with real-time inventory management serving 10M+ requests daily',
-      technologies: ['Laravel', 'MySQL', 'Redis', 'AWS'],
-      githubUrl: 'https://github.com/faizal97/travel-booking-api',
-      demoUrl: 'https://travel-api-demo.faizal.dev',
-      stars: 45,
-      forks: 12,
+        'Enterprise travel booking REST API with real-time inventory management and multi-currency support',
+      technologies: ['Laravel', 'MySQL', 'Redis', 'AWS', 'Docker'],
+      liveUrl: 'https://app.trutrip.co',
+      status: 'confidential',
+      scale: 'Enterprise travel platform',
+      role: 'Lead Backend Developer',
+      githubUrl: undefined,
+      demoUrl: 'https://app.trutrip.co',
     },
     {
-      name: 'Government Portal',
+      name: 'AHU Beneficial Owner System',
       description:
-        'Citizen services portal with secure authentication and document management system',
-      technologies: ['Laravel', 'Vue.js', 'PostgreSQL', 'Docker'],
-      githubUrl: 'https://github.com/faizal97/government-portal',
-      demoUrl: 'https://gov-portal-demo.faizal.dev',
-      stars: 23,
-      forks: 8,
+        'Government beneficial ownership transparency system for Indonesian Ministry of Law and Human Rights',
+      technologies: ['Laravel', 'PostgreSQL', 'Vue.js', 'Government APIs'],
+      liveUrl: 'https://bo.ahu.go.id/site/login',
+      status: 'confidential',
+      scale: 'National government system',
+      role: 'Senior Backend Developer',
+      githubUrl: undefined,
+      demoUrl: 'https://bo.ahu.go.id/site/login',
     },
     {
-      name: 'Next.js Portfolio',
+      name: 'AHU Koperasi Management',
       description:
-        'Modern portfolio website built with Next.js, TypeScript, and Framer Motion animations',
-      technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-      githubUrl: 'https://github.com/faizal97/faizal97.github.io',
-      demoUrl: 'https://faizal97.github.io',
-      stars: 15,
-      forks: 3,
+        'Cooperative management system for Indonesian cooperative registration and compliance monitoring',
+      technologies: ['Laravel', 'MySQL', 'Bootstrap', 'Government Integration'],
+      liveUrl: 'https://koperasi.ahu.go.id/site/login',
+      status: 'confidential',
+      scale: 'National cooperative system',
+      role: 'Backend Developer',
+      githubUrl: undefined,
+      demoUrl: 'https://koperasi.ahu.go.id/site/login',
     },
   ];
 
-  const handleGithubClick = (url: string, projectName: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-    console.log(`GitHub link clicked: ${projectName}`);
-  };
-
-  const handleDemoClick = (url: string, projectName: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-    console.log(`Demo link clicked: ${projectName}`);
+  const handleLiveClick = (url: string | undefined, projectName: string) => {
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      console.log(`Live project clicked: ${projectName}`);
+    }
   };
 
   return (
@@ -101,21 +104,28 @@ export function Projects() {
                           className="flex items-center gap-1"
                           whileHover={{ scale: 1.1 }}
                         >
-                          <Star className="w-3 h-3" />
-                          <span>{project.stars}</span>
+                          <span className="bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-2 py-1 rounded text-xs font-medium">
+                            {project.status === 'confidential'
+                              ? 'Confidential'
+                              : 'Open Source'}
+                          </span>
                         </motion.div>
                         <motion.div
                           className="flex items-center gap-1"
                           whileHover={{ scale: 1.1 }}
                         >
-                          <GitFork className="w-3 h-3" />
-                          <span>{project.forks}</span>
+                          <span className="text-xs">{project.scale}</span>
                         </motion.div>
                       </div>
                     </CardTitle>
                     <CardDescription className="leading-relaxed">
                       {project.description}
                     </CardDescription>
+                    {project.role && (
+                      <div className="text-sm text-muted-foreground mt-2">
+                        <strong>Role:</strong> {project.role}
+                      </div>
+                    )}
                   </CardHeader>
 
                   <CardContent className="flex-1 flex flex-col justify-between">
@@ -143,41 +153,70 @@ export function Projects() {
                     </motion.div>
 
                     <div className="flex gap-2">
-                      <motion.div
-                        whileHover={hoverScale}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex-1"
-                      >
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() =>
-                            handleGithubClick(project.githubUrl, project.name)
-                          }
-                          className="w-full hover:bg-primary/10 hover:border-primary/30 transition-all duration-200"
+                      {project.status === 'confidential' ? (
+                        <motion.div
+                          whileHover={hoverScale}
+                          whileTap={{ scale: 0.95 }}
+                          className="w-full"
                         >
-                          <Github className="w-4 h-4 mr-2" />
-                          Code
-                        </Button>
-                      </motion.div>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() =>
+                              handleLiveClick(project.liveUrl, project.name)
+                            }
+                            className="w-full hover:bg-primary/10 hover:border-primary/30 transition-all duration-200"
+                          >
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            View Live System
+                          </Button>
+                        </motion.div>
+                      ) : (
+                        <>
+                          {project.githubUrl && (
+                            <motion.div
+                              whileHover={hoverScale}
+                              whileTap={{ scale: 0.95 }}
+                              className="flex-1"
+                            >
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() =>
+                                  handleLiveClick(
+                                    project.githubUrl,
+                                    project.name
+                                  )
+                                }
+                                className="w-full hover:bg-primary/10 hover:border-primary/30 transition-all duration-200"
+                              >
+                                <Github className="w-4 h-4 mr-2" />
+                                Code
+                              </Button>
+                            </motion.div>
+                          )}
 
-                      <motion.div
-                        whileHover={hoverScale}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex-1"
-                      >
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() =>
-                            handleDemoClick(project.demoUrl, project.name)
-                          }
-                          className="w-full hover:bg-accent/10 hover:border-accent/30 transition-all duration-200"
-                        >
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Demo
-                        </Button>
-                      </motion.div>
+                          {project.demoUrl && (
+                            <motion.div
+                              whileHover={hoverScale}
+                              whileTap={{ scale: 0.95 }}
+                              className="flex-1"
+                            >
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() =>
+                                  handleLiveClick(project.demoUrl, project.name)
+                                }
+                                className="w-full hover:bg-accent/10 hover:border-accent/30 transition-all duration-200"
+                              >
+                                <ExternalLink className="w-4 h-4 mr-2" />
+                                Demo
+                              </Button>
+                            </motion.div>
+                          )}
+                        </>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -185,23 +224,17 @@ export function Projects() {
             ))}
           </motion.div>
 
-          {/* View All Projects Button */}
+          {/* View Open Source Projects Button */}
           <motion.div className="text-center mt-12" variants={fadeInUp}>
             <motion.div whileHover={hoverScale} whileTap={{ scale: 0.95 }}>
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() =>
-                  window.open(
-                    'https://github.com/faizal97',
-                    '_blank',
-                    'noopener,noreferrer'
-                  )
-                }
+                onClick={() => window.open('/repositories', '_self')}
                 className="hover:bg-primary/10 hover:border-primary/30 transition-all duration-200"
               >
                 <Github className="w-4 h-4 mr-2" />
-                View All Projects
+                View Open Source Projects
                 <ExternalLink className="w-3 h-3 ml-1" />
               </Button>
             </motion.div>

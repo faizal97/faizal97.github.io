@@ -14,7 +14,7 @@ export function Hero({ name, title, description, profileImage }: HeroProps) {
   };
 
   const handleViewProjects = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+    window.location.href = '/projects';
   };
 
   return (

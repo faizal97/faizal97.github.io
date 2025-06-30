@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -11,17 +12,18 @@ export function Navigation({ className }: { className?: string }) {
   const [mounted, setMounted] = React.useState(false);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
   const navigation = [
-    { name: 'About', href: 'about' },
-    { name: 'Skills', href: 'skills' },
-    { name: 'Experience', href: 'experience' },
-    { name: 'Projects', href: 'projects' },
-    { name: 'Contact', href: 'contact' },
+    { name: 'About', href: 'about', type: 'scroll' },
+    { name: 'Skills', href: 'skills', type: 'scroll' },
+    { name: 'Experience', href: 'experience', type: 'scroll' },
+    { name: 'Projects', href: '/projects', type: 'route' },
+    { name: 'Contact', href: 'contact', type: 'scroll' },
   ];
 
   const handleNavClick = (sectionId: string) => {
@@ -53,15 +55,31 @@ export function Navigation({ className }: { className?: string }) {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigation.map(item => (
-              <button
-                key={item.name}
-                onClick={() => handleNavClick(item.href)}
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                {item.name}
-              </button>
-            ))}
+            {navigation.map(item => {
+              const isActive =
+                item.type === 'route' ? pathname === item.href : false;
+
+              return item.type === 'route' ? (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={cn(
+                    'text-sm font-medium transition-colors hover:text-primary',
+                    isActive ? 'text-primary' : 'text-foreground'
+                  )}
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.href)}
+                  className="text-sm font-medium transition-colors hover:text-primary text-foreground"
+                >
+                  {item.name}
+                </button>
+              );
+            })}
           </div>
 
           {/* Theme Toggle & Mobile Menu */}
@@ -101,12 +119,19 @@ export function Navigation({ className }: { className?: string }) {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-white/10">
             <div className="flex flex-col space-y-4">
-              {navigation.map(item =>
-                item.href.startsWith('/') ? (
+              {navigation.map(item => {
+                const isActive =
+                  item.type === 'route' ? pathname === item.href : false;
+
+                return item.type === 'route' ? (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-sm font-medium transition-colors hover:text-primary text-left"
+                    className={cn(
+                      'text-sm font-medium transition-colors hover:text-primary text-left',
+                      isActive ? 'text-primary' : 'text-foreground'
+                    )}
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
@@ -114,12 +139,12 @@ export function Navigation({ className }: { className?: string }) {
                   <button
                     key={item.name}
                     onClick={() => handleNavClick(item.href)}
-                    className="text-sm font-medium transition-colors hover:text-primary text-left"
+                    className="text-sm font-medium transition-colors hover:text-primary text-left text-foreground"
                   >
                     {item.name}
                   </button>
-                )
-              )}
+                );
+              })}
             </div>
           </div>
         )}
