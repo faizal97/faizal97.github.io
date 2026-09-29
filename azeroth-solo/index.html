@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Realm of Loner has moved</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://faizal97.github.io/realm-of-loner/">
+<style>
+  :root { --bg:#120e09; --panel:#1f1810; --gold:#e6b450; --text:#efe2c4; --dim:#a8977a; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px 16px;
+    background:radial-gradient(circle at 50% 30%, #2c2217, var(--bg) 70%); color:var(--text);
+    font:16px/1.5 Georgia, 'Times New Roman', serif; }
+  .card { max-width:420px; width:100%; text-align:center; background:var(--panel); border:2px solid var(--gold);
+    border-radius:14px; padding:28px 22px; box-shadow:0 10px 40px #000a; }
+  h1 { margin:.4em 0 .2em; font-size:26px; color:var(--gold); letter-spacing:.02em; }
+  p { margin:.6em 0; }
+  .dim { color:var(--dim); font-size:14px; }
+  a.go { display:inline-block; margin-top:14px; padding:12px 22px; border-radius:10px; background:var(--gold); color:#1a130a;
+    font-weight:bold; text-decoration:none; }
+  svg { width:64px; height:64px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <svg viewBox="-20 -45 40 80" aria-hidden="true"><circle cx="0" cy="-37" r="5" fill="none" stroke="#e6b450" stroke-width="2.4"/><path d="M-13,-24 L13,-24 L9,-31 L-9,-31 Z" fill="#7a5a30"/><path d="M-15,-24 L15,-24 L12,22 L-12,22 Z" fill="#ffd67a" stroke="#140f09" stroke-width="2"/><path d="M-5.5,6 C-5.5,-3 0,-9 0,-15 C3.5,-8 6.5,-3 6.5,5 C6.5,10 3.5,13 0.5,13 C-3,13 -5.5,10 -5.5,6 Z" fill="#ff9a2e"/><path d="M-16,22 L16,22 L12,29 L-12,29 Z" fill="#7a5a30"/></svg>
+  <h1>Azeroth Solo is now Realm of Loner</h1>
+  <p>The game has a new name and a new address.</p>
+  <p>Your characters come with you. They are saved in this browser, and the new address uses the same one.</p>
+  <a class="go" id="go" href="https://faizal97.github.io/realm-of-loner/">Go to Realm of Loner</a>
+  <p class="dim" id="auto">Taking you there in a few seconds…</p>
+  <p class="dim">Please update your bookmark.</p>
+</div>
+<script>
+  // keep the part after /azeroth-solo/ (beta/, a query, a hash) so every old link lands on the same page
+  var rest = location.pathname.replace(/^\/azeroth-solo\/?/, '');
+  var to = 'https://faizal97.github.io/realm-of-loner/' + rest + location.search + location.hash;
+  document.getElementById('go').href = to;
+  setTimeout(function () { location.replace(to); }, 4000);
+</script>
+</body>
+</html>
